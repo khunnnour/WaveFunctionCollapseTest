@@ -13,7 +13,7 @@ public:
 
 
 	//  - Operator overloads - //
-	vector2D& operator=(vector2D& other)
+	vector2D& operator=(vector2D other)
 	{
 		x = other.x;
 		y = other.y;

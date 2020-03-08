@@ -67,6 +67,7 @@ int findLowestEntropy(std::vector<tile*>& gr)
 	return index;
 }
 
+// create the map vector and populate all with all options
 void generateMap(std::vector<tile*>& gr)
 {
 	int index = findLowestEntropy(gr);
@@ -96,6 +97,28 @@ void generateMap(std::vector<tile*>& gr)
 	displayMap(gr);
 }
 
+// add values to map
+void seedMap(std::vector<tile*>& gr, vector2D loc, int index)
+{
+	int mapIndex = vec2dToIndex(loc);
+
+	// input validation
+	if (mapIndex >= gr.size() || index >= TILE_FULL.size())
+	{
+		std::cout << "\nINVALID SEED\n";
+		return;
+	}
+
+	// collapse
+	gr[mapIndex]->options = TILE_EMPTY;
+	gr[mapIndex]->options[index] = '1';
+	gr[mapIndex]->collapsed = true;
+
+	// ripple out
+	ripple(gr, loc);
+}
+
+// output the map
 void displayMap(std::vector<tile*>& gr)
 {
 	for (int i = 0; i < DIMENSIONS.y; i++)
@@ -117,6 +140,7 @@ void displayMap(std::vector<tile*>& gr)
 	}
 }
 
+// check if tiles conflict
 bool conflicts(tile* a, tile* b)
 {
 	if ((a->options == TILE_LAND && b->options == TILE_SEA) ||
@@ -126,6 +150,7 @@ bool conflicts(tile* a, tile* b)
 		return false;
 }
 
+// collapse tile
 void collapse(std::vector<tile*>& gr, vector2D loc)
 {
 	float Weight_Total = WEIGHT_FOREST + WEIGHT_LAND + WEIGHT_COAST + WEIGHT_SEA;

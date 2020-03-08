@@ -18,7 +18,7 @@ const std::string TILE_SEA		= "1000";
 const std::string TILE_FULL		= "1111";
 const std::string TILE_EMPTY	= "0000";
 // Tile weights
-const float WEIGHT_FOREST	= 0.50f;
+const float WEIGHT_FOREST	= 1.00f;
 const float WEIGHT_LAND		= 1.00f;
 const float WEIGHT_COAST	= 1.50f;
-const float WEIGHT_SEA		= 2.00f;
+const float WEIGHT_SEA		= 1.00f;
